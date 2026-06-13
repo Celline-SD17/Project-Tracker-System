@@ -48,7 +48,7 @@ def list_projects(args):
         return
     print(f"\nProjects for {args.user}:")
     for p in user_projects:
-        print(f"- {p['title']} |Due: {p['due_date']}")
+        print(f"- {p['title']} | Due: {p['due_date']}")
 def add_tasks(args):
     tasks = load_data(TASKS_FILE)
     tasks.append({
@@ -71,7 +71,7 @@ def list_tasks (args):
         return
     print(f"\nTasks for project '{args.project}':")
     for t in project_tasks:
-        print(f"-{t['title']} | {t['assigned_to']} | {t['status']}")
+        print(f"- {t['title']} | {t['assigned_to']} | {t['status']}")
 
 def complete_tasks(args):
     tasks = load_data(TASKS_FILE)
@@ -115,7 +115,7 @@ def main():
     add_user_parser.set_defaults(func=add_user)
 
     list_users_parser = subparsers.add_parser(
-        "list_users",
+        "list-users",
         help ="List all users"
     )
     list_users_parser.set_defaults(func=list_users)
@@ -131,7 +131,7 @@ def main():
     add_project_parser.set_defaults(func=add_project)
 
     list_projects_parser = subparsers.add_parser(
-        "list-project", help ="List projects for a user"
+        "list-projects", help ="List projects for a user"
     )
     list_projects_parser.add_argument("--user", required=True)
     list_projects_parser.set_defaults(func=list_projects)

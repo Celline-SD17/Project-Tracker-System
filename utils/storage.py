@@ -7,6 +7,8 @@ def load_data(filename):
     try:
         with open(filename, "r") as file:
             return json.load(file)
+    except FileNotFoundError:
+        return []
     except json.JSONDecodeError:
         print("No logs found. Log file does not exist.")
         return []

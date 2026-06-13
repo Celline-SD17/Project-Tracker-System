@@ -1,1 +1,8 @@
-[]
+[
+    {
+        "project": "CLI Tool",
+        "title": "Implement add-task",
+        "assigned_to": "Alex",
+        "status": "Completed"
+    }
+]
