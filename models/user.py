@@ -4,7 +4,7 @@ class User(Person):
 
     id_counter = 1
     def __init__(self, name, email):
-        super().__init__name
+        super().__init__(name)
 
         self.id = User.id_counter
         User.id_counter += 1
