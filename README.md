@@ -102,9 +102,9 @@ Project-Tracker-System/
     * python3 main.py -h
 ## Running Tests
 - You can run all tests together using:
-    *pytest
+    * pytest
 - You can run each test file a a time using
-    *pytest test/test_file.py eg pytest tests/test_user.py
+    * pytest test/test_file.py eg pytest tests/test_user.py
 ## Author
 - This project was developed as part of a Python learning project demonstrating Object Oriented Programming(OOP), inheritance and encapsulation, File Persitence with json, CLI using argparse, Unit Testing with Pytest, and Version control using Git and GitHub.
 ## License
