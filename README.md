@@ -82,23 +82,23 @@ Project-Tracker-System/
 
 ## CLI Usage commands:
 
-- Add a User:
+1. Add a User:
     * python3 main.py add-user --name "Alex" --email "alex@email.com"
-- List Users
+2. List Users
     * python3 main.py list-users
-- Add a project
-    * python3 main.py add-project \ --user "Alex" \ --title "CLI Tool" \ --description "Python CLI project" \ --due-date "2026-12-01"
-- List Projects
+3. Add a project
+    * python3 main.py add-project --user "Alex" --title "CLI Tool" --description "School project" --due-date "2026-12-01"
+4. List Projects
     * python3 main.py list-projects --user "Alex"
-- Add a Task
-    * python3 main.py add-task \ --project "CLI Tool" \ --title "Implement add-task" \ --assigned-to "Alex"
-- View Tasks
+5. Add a Task
+    * python3 main.py add-task --project "CLI Tool" --title "Implement add-task" --assigned-to "Alex"
+6. View Tasks
     * python3 main.py list-tasks --project "CLI Tool"
-- Complete a Task
+7. Complete a Task
     * python3 main.py complete-task --title "Implement add-task"
-- Search for a Project
+8. Search for a Project
     * python3 main.py search-project --keyword "CLI"
-- View Available Commands
+9. View Available Commands
     * python3 main.py -h
 ## Running Tests
 - You can run all tests together using:
