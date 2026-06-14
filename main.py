@@ -1,6 +1,9 @@
 import argparse
 
 from utils.storage import load_data, save_data
+from models.user import User
+from models.project import Project
+from models.task import Task
 
 USERS_FILE = "data/users.json"
 PROJECTS_FILE = "data/projects.json"
@@ -8,11 +11,12 @@ TASKS_FILE = "data/tasks.json"
 
 def add_user(args):
     users = load_data(USERS_FILE)
-    users.append({
-        "name": args.name,
-        "email": args.email
-    })
-
+    user = User(
+        args.name,
+        args.email
+    )
+    users.append(user.to_dict())
+   
     save_data(USERS_FILE, users)
     print(f"User '{args.name}' created successfully")
 
@@ -28,12 +32,13 @@ def list_users(args):
 def add_project(args):
     projects = load_data(PROJECTS_FILE)
 
-    projects.append({
-        "user": args.user,
-        "title": args.title,
-        "description": args.description,
-        "due_date": args.due_date
-    })
+    project = Project(
+        args.title,
+        args.description,
+        args.due_date,
+        args.user
+    )
+    projects.append(project.to_dict())
 
     save_data(PROJECTS_FILE, projects)
     print(f"Project '{args.title}' added for {args.user}.")
@@ -49,14 +54,15 @@ def list_projects(args):
     print(f"\nProjects for {args.user}:")
     for p in user_projects:
         print(f"- {p['title']} | Due: {p['due_date']}")
-def add_tasks(args):
+def add_task(args):
     tasks = load_data(TASKS_FILE)
-    tasks.append({
-        "project": args.project,
-        "title": args.title,
-        "assigned_to": args.assigned_to,
-        "status": "Pending"
-    })
+    task = Task(
+        args.title,
+        args.assigned_to
+    )
+    task_data = task.to_dict()
+    task_data["project"] = args.project
+    tasks.append(task_data)
 
     save_data(TASKS_FILE, tasks)
     print(f"Task '{args.title}' added to project '{args.project}'.")
@@ -64,7 +70,7 @@ def add_tasks(args):
 def list_tasks (args):
     tasks = load_data(TASKS_FILE)
     project_tasks = [
-        t for t in tasks if t["project"] == args.project
+        t for t in tasks if t.get("project") == args.project
     ]
     if not project_tasks:
         print(f"No tasks found for project '{args.project}'.")
@@ -75,16 +81,21 @@ def list_tasks (args):
 
 def complete_tasks(args):
     tasks = load_data(TASKS_FILE)
-    found = False
-    for task in tasks:
-        if task["title"] == args.title:
-            task["status"] = "Completed"
-            found = True
-        if found:
+    for task_data in tasks:
+        if task_data.get("title") == args.title:
+            task =Task(
+                task_data["title"],
+                task_data["assigned_to"]
+            )
+            task.complete()
+            task_data["status"] = task.status
+            
             save_data(TASKS_FILE, tasks)
             print(f"Task '{args.title}' marked as completed.")
-        else:
-            print(f"Task '{args.title}' not found")
+            return
+        
+        
+    print(f"Task '{args.title}' not found")
 
 def search_project(args):
     projects = load_data(PROJECTS_FILE)
@@ -142,7 +153,7 @@ def main():
     add_task_parser.add_argument("--project", required=True)
     add_task_parser.add_argument("--title", required=True)
     add_task_parser.add_argument("--assigned-to", required=True)
-    add_task_parser.set_defaults(func=add_tasks)
+    add_task_parser.set_defaults(func=add_task)
 
     list_tasks_parser = subparsers.add_parser(
         "list-tasks",

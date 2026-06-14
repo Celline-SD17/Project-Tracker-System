@@ -10,6 +10,13 @@ class Task:
 
     def complete(self):
         self.status = "Completed"
+
+    def to_dict(self):
+        return {
+            "title": self.title,
+            "assigned_to": self.assigned_to,
+            "status": self.status
+        }
     
     def __repr__(self):
         return f"Task(id={self.id}, title='{self.title}', status='{self.status}')"

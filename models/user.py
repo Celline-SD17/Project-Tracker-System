@@ -24,6 +24,15 @@ class User(Person):
     def add_project(self, project):
         self.projects.append(project)
 
+    def project_count(self):
+        return len(self.projects)
+    
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "email": self.email
+        }
+
     def __repr__(self):
         return f"User(id={self.id}, name='{self.name}')"
  
